@@ -1,0 +1,35 @@
+-- Создание таблицы для студий
+CREATE TABLE Studios (
+    StudioID INT PRIMARY KEY IDENTITY(1,1),
+    Name NVARCHAR(255) NOT NULL
+);
+
+-- Создание таблицы страны
+CREATE TABLE Countries (
+    ID INT PRIMARY KEY IDENTITY(1,1),
+    CountryName NVARCHAR(255) NOT NULL
+);
+
+-- Создание таблицы StudioCountry
+CREATE TABLE StudioCountry (
+    ID INT PRIMARY KEY,
+    StudioID INT FOREIGN KEY REFERENCES Studios(ID),
+    CountryID INT FOREIGN KEY REFERENCES Countries(ID) 
+);
+
+-- Создание таблицы для филиалов студий
+CREATE TABLE Branches (
+    ID INT PRIMARY KEY IDENTITY,
+    StudioID INT FOREIGN KEY REFERENCES Studios(ID),
+    City NVARCHAR(255) NOT NULL
+);
+
+-- Создание таблицы для игр
+CREATE TABLE Games (
+    GameID INT PRIMARY KEY IDENTITY(1,1),
+    Title NVARCHAR(255) NOT NULL,
+    Genre NVARCHAR(255) NOT NULL,
+    StudioID INT FOREIGN KEY REFERENCES Studios(StudioID),
+    IsSinglePlayer BIT NOT NULL,
+    Sales INT NOT NULL
+);

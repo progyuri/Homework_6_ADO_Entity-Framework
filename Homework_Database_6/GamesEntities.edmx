@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище GamesModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Branches">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudioID" Type="int" />
+          <Property Name="City" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Countries">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryName" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Games">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Genre" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="StudioID" Type="int" />
+          <Property Name="IsSinglePlayer" Type="bit" Nullable="false" />
+          <Property Name="Sales" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudioCountry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudioID" Type="int" Nullable="false" />
+          <Property Name="CountryID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Studios">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__Branches__Studio__267ABA7A">
+          <End Role="Studios" Type="Self.Studios" Multiplicity="0..1" />
+          <End Role="Branches" Type="Self.Branches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studios">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Branches">
+              <PropertyRef Name="StudioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Games__StudioID__3D5E1FD2">
+          <End Role="Studios" Type="Self.Studios" Multiplicity="0..1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studios">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="StudioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudioCou__Count__47DBAE45">
+          <End Role="Countries" Type="Self.Countries" Multiplicity="1" />
+          <End Role="StudioCountry" Type="Self.StudioCountry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StudioCountry">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudioCou__Studi__48CFD27E">
+          <End Role="Studios" Type="Self.Studios" Multiplicity="1" />
+          <End Role="StudioCountry" Type="Self.StudioCountry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studios">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StudioCountry">
+              <PropertyRef Name="StudioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище GamesModelContainer">
+          <EntitySet Name="Branches" EntityType="Self.Branches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Games" EntityType="Self.Games" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudioCountry" EntityType="Self.StudioCountry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Studios" EntityType="Self.Studios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Branches__Studio__267ABA7A" Association="Self.FK__Branches__Studio__267ABA7A">
+            <End Role="Studios" EntitySet="Studios" />
+            <End Role="Branches" EntitySet="Branches" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Games__StudioID__3D5E1FD2" Association="Self.FK__Games__StudioID__3D5E1FD2">
+            <End Role="Studios" EntitySet="Studios" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudioCou__Count__47DBAE45" Association="Self.FK__StudioCou__Count__47DBAE45">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="StudioCountry" EntitySet="StudioCountry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudioCou__Studi__48CFD27E" Association="Self.FK__StudioCou__Studi__48CFD27E">
+            <End Role="Studios" EntitySet="Studios" />
+            <End Role="StudioCountry" EntitySet="StudioCountry" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GamesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Branches">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudioID" Type="Int32" />
+          <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Studios" Relationship="Self.FK__Branches__Studio__267ABA7A" FromRole="Branches" ToRole="Studios" />
+        </EntityType>
+        <EntityType Name="Countries">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="StudioCountry" Relationship="Self.FK__StudioCou__Count__47DBAE45" FromRole="Countries" ToRole="StudioCountry" />
+        </EntityType>
+        <EntityType Name="Games">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Genre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StudioID" Type="Int32" />
+          <Property Name="IsSinglePlayer" Type="Boolean" Nullable="false" />
+          <Property Name="Sales" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Studios" Relationship="Self.FK__Games__StudioID__3D5E1FD2" FromRole="Games" ToRole="Studios" />
+        </EntityType>
+        <EntityType Name="StudioCountry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudioID" Type="Int32" Nullable="false" />
+          <Property Name="CountryID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Countries" Relationship="Self.FK__StudioCou__Count__47DBAE45" FromRole="StudioCountry" ToRole="Countries" />
+          <NavigationProperty Name="Studios" Relationship="Self.FK__StudioCou__Studi__48CFD27E" FromRole="StudioCountry" ToRole="Studios" />
+        </EntityType>
+        <EntityType Name="Studios">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Branches" Relationship="Self.FK__Branches__Studio__267ABA7A" FromRole="Studios" ToRole="Branches" />
+          <NavigationProperty Name="Games" Relationship="Self.FK__Games__StudioID__3D5E1FD2" FromRole="Studios" ToRole="Games" />
+          <NavigationProperty Name="StudioCountry" Relationship="Self.FK__StudioCou__Studi__48CFD27E" FromRole="Studios" ToRole="StudioCountry" />
+        </EntityType>
+        <Association Name="FK__Branches__Studio__267ABA7A">
+          <End Role="Studios" Type="Self.Studios" Multiplicity="0..1" />
+          <End Role="Branches" Type="Self.Branches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studios">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Branches">
+              <PropertyRef Name="StudioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudioCou__Count__47DBAE45">
+          <End Role="Countries" Type="Self.Countries" Multiplicity="1" />
+          <End Role="StudioCountry" Type="Self.StudioCountry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StudioCountry">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Games__StudioID__3D5E1FD2">
+          <End Role="Studios" Type="Self.Studios" Multiplicity="0..1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studios">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="StudioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudioCou__Studi__48CFD27E">
+          <End Role="Studios" Type="Self.Studios" Multiplicity="1" />
+          <End Role="StudioCountry" Type="Self.StudioCountry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Studios">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StudioCountry">
+              <PropertyRef Name="StudioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GamesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Branches" EntityType="Self.Branches" />
+          <EntitySet Name="Countries" EntityType="Self.Countries" />
+          <EntitySet Name="Games" EntityType="Self.Games" />
+          <EntitySet Name="StudioCountry" EntityType="Self.StudioCountry" />
+          <EntitySet Name="Studios" EntityType="Self.Studios" />
+          <AssociationSet Name="FK__Branches__Studio__267ABA7A" Association="Self.FK__Branches__Studio__267ABA7A">
+            <End Role="Studios" EntitySet="Studios" />
+            <End Role="Branches" EntitySet="Branches" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudioCou__Count__47DBAE45" Association="Self.FK__StudioCou__Count__47DBAE45">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="StudioCountry" EntitySet="StudioCountry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Games__StudioID__3D5E1FD2" Association="Self.FK__Games__StudioID__3D5E1FD2">
+            <End Role="Studios" EntitySet="Studios" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudioCou__Studi__48CFD27E" Association="Self.FK__StudioCou__Studi__48CFD27E">
+            <End Role="Studios" EntitySet="Studios" />
+            <End Role="StudioCountry" EntitySet="StudioCountry" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище GamesModelContainer" CdmEntityContainer="GamesEntities">
+          <EntitySetMapping Name="Branches">
+            <EntityTypeMapping TypeName="GamesModel.Branches">
+              <MappingFragment StoreEntitySet="Branches">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StudioID" ColumnName="StudioID" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="GamesModel.Countries">
+              <MappingFragment StoreEntitySet="Countries">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="GamesModel.Games">
+              <MappingFragment StoreEntitySet="Games">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Genre" ColumnName="Genre" />
+                <ScalarProperty Name="StudioID" ColumnName="StudioID" />
+                <ScalarProperty Name="IsSinglePlayer" ColumnName="IsSinglePlayer" />
+                <ScalarProperty Name="Sales" ColumnName="Sales" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudioCountry">
+            <EntityTypeMapping TypeName="GamesModel.StudioCountry">
+              <MappingFragment StoreEntitySet="StudioCountry">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StudioID" ColumnName="StudioID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Studios">
+            <EntityTypeMapping TypeName="GamesModel.Studios">
+              <MappingFragment StoreEntitySet="Studios">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
